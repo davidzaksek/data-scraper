@@ -1,9 +1,10 @@
 import re
 import requests
 import orodja
+import os
 
-stevilo_strani = 7
-dejavnost = "Energetika"
+stevilo_strani = 4
+dejavnost = "Izolacija"
 vzorec = (
     r'<a href="(?P<naslov>/.*?)" id=".*?" class="contact-link"'
     )
@@ -92,7 +93,9 @@ for stran in range(stevilo_strani):
         vsebina = f.read()
 
         for zadetek in re.finditer(vzorec, vsebina):
-            naslovi.append(zadetek.groupdict())     
+            naslovi.append(zadetek.groupdict()) 
+
+    os.remove(f'{dejavnost}-stran-{stran}.html')            
 
 def podjetja_na_strani():
     count = 0
@@ -106,6 +109,7 @@ def podjetja_na_strani():
             vsebina = orodja.vsebina_datoteke(ime_datoteke)
             for blok in vzorec_podjetja.finditer(vsebina):
                 yield izloci_podatke(blok.group(0))
+            os.remove(ime_datoteke)    
 
 
 podjetja = []
@@ -144,4 +148,3 @@ orodja.zapisi_csv(
     podjetja,
     ['ime', 'telefonska', 'mail', 'spletna_stran'], 'obdelani-podatki.csv'
 )
-
