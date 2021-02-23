@@ -1,0 +1,6 @@
+ime = <div class="contact-info">\n\n.*\n\n\s*.*?\n
+mail = href="mailto:.*?"
+telefon = <div class="caption">Telefon</div>\n\n\s*?<div class="nr">.*?<
+spletna stran = title="Spletna stran podjetja.*?>.*?<
+blok = <div class="contact-info">\n\n.*\n\n\s*.*?\n.*?
+</div>\n\n</div>\n\n\n\n\s*</div>
